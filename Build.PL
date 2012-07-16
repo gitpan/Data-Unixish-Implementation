@@ -18,13 +18,16 @@ my %module_build_args = (
     "Steven Haryanto <stevenharyanto\@gmail.com>"
   ],
   "dist_name" => "Data-Unixish-Implementation",
-  "dist_version" => "0.01",
+  "dist_version" => "0.02",
   "license" => "perl",
   "module_name" => "Data::Unixish::Implementation",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
     "Log::Any" => 0,
+    "Perinci::CmdLine" => "0.53",
+    "SHARYANTO::Package::Util" => 0,
+    "Tie::Diamond" => "0.03",
     "perl" => "5.010000"
   },
   "script_files" => [

@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use Log::Any '$log';
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 our %SPEC;
 
@@ -40,7 +40,7 @@ sub tail {
     # push buffer to out
     push @$out, $_ for @buf;
 
-    [200, "OK", $out];
+    [200, "OK"];
 }
 
 1;
@@ -55,7 +55,7 @@ Data::Unixish::tail - Output the last items of data
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 AUTHOR
 

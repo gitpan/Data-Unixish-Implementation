@@ -3,30 +3,14 @@
 use 5.010;
 use strict;
 use warnings;
+use Log::Any '$log';
 
-package Perinci::CmdLine::dux;
-use Moo;
-extends 'Perinci::CmdLine';
+BEGIN { $ENV{LOG} //= 0 } # speedup startup
 
-sub run_subcommand {
-    my $self = shift;
-
-    # supply in and out first from STDIN & STDOUT. XXX currently doesn't stream
-    # at all. we need to create a tied array which backends to filehandle.
-
-    my $in  = [<>];
-    my $out = [];
-    $self->{_args}{in}  = $in;
-    $self->{_args}{out} = $out;
-
-    $self->SUPER::run_subcommand(@_);
-}
-
-package main;
 use Getopt::Long;
+use Perinci::CmdLine::dux;
 
-
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 my %opts = (
     library => [],
@@ -87,7 +71,7 @@ dux - Run dux function on the command-line
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 

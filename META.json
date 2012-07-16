@@ -4,7 +4,7 @@
       "Steven Haryanto <stevenharyanto@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300006, CPAN::Meta::Converter version 2.113640",
+   "generated_by" : "Dist::Zilla version 4.300002, CPAN::Meta::Converter version 2.112150",
    "license" : [
       "perl_5"
    ],
@@ -27,6 +27,9 @@
       "runtime" : {
          "requires" : {
             "Log::Any" : 0,
+            "Perinci::CmdLine" : "0.53",
+            "SHARYANTO::Package::Util" : 0,
+            "Tie::Diamond" : "0.03",
             "perl" : "5.010000"
          }
       },
@@ -43,6 +46,6 @@
          "url" : "http://github.com/sharyanto/perl-Data-Unixish-Implementation"
       }
    },
-   "version" : "0.01"
+   "version" : "0.02"
 }
 
