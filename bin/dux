@@ -10,21 +10,26 @@ BEGIN { $ENV{LOG} //= 0 } # speedup startup
 use Getopt::Long;
 use Perinci::CmdLine::dux;
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 my %opts = (
     library => [],
     subcommands => [],
+    version => 0,
 );
 Getopt::Long::Configure('pass_through', 'no_permute');
 GetOptions(
     'library|I=s' => $opts{library},
     'help|h|?' => \$opts{help},
+    'version|v' => \$opts{version},
 );
 
 my $me = $0; $me =~ s!.+/!!;
 
-if ($opts{help} || !@ARGV) {
+if ($opts{version}) {
+    print "$me version $main::VERSION\n";
+    exit 0;
+} elsif ($opts{help} || !@ARGV) {
     print <<USAGE;
 $me - Run dux function on the command-line
 
@@ -71,7 +76,7 @@ dux - Run dux function on the command-line
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 

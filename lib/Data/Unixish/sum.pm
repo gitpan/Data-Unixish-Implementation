@@ -1,57 +1,46 @@
-package Data::Unixish::tail;
+package Data::Unixish::sum;
 
 use 5.010;
 use strict;
 use warnings;
 use Log::Any '$log';
+use Scalar::Util 'looks_like_number';
 
 our $VERSION = '0.03'; # VERSION
 
 our %SPEC;
 
-$SPEC{tail} = {
+$SPEC{sum} = {
     v => 1.1,
-    summary => 'Output the last items of data',
+    summary => 'Sum numbers',
     args => {
         in  => {schema=>'any'},
         out => {schema=>'any'},
-        items => {
-            summary => 'Number of items to output',
-            schema=>['int*' => {default=>10}],
-            tags => ['main'],
-            cmdline_aliases => { n=>{} },
-        },
     },
-    tags => [qw/filtering/],
+    tags => [qw/group/],
 };
-sub tail {
+sub sum {
     my %args = @_;
     my ($in, $out) = ($args{in}, $args{out});
-    my $n = $args{items} // 10;
 
-    # maintain temporary buffer first
-    my @buf;
-
+    my $sum = 0;
     while (my ($index, $item) = each @$in) {
-        push @buf, $item;
-        shift @buf if @buf > $n;
+        $sum += $item if looks_like_number($item);
     }
 
-    # push buffer to out
-    push @$out, $_ for @buf;
-
+    push @$out, $sum;
     [200, "OK"];
 }
 
 1;
-# ABSTRACT: Output the last items of data
+# ABSTRACT: Sum numbers
 
 __END__
 =pod
 
 =head1 NAME
 
-Data::Unixish::tail - Output the last items of data
+Data::Unixish::sum - Sum numbers
 
 =head1 VERSION
 

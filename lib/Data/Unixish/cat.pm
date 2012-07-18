@@ -1,4 +1,4 @@
-package Data::Unixish::tail;
+package Data::Unixish::cat;
 
 use 5.010;
 use strict;
@@ -9,49 +9,35 @@ our $VERSION = '0.03'; # VERSION
 
 our %SPEC;
 
-$SPEC{tail} = {
+$SPEC{cat} = {
     v => 1.1,
-    summary => 'Output the last items of data',
+    summary => 'Pass input unchanged',
     args => {
         in  => {schema=>'any'},
         out => {schema=>'any'},
-        items => {
-            summary => 'Number of items to output',
-            schema=>['int*' => {default=>10}],
-            tags => ['main'],
-            cmdline_aliases => { n=>{} },
-        },
     },
     tags => [qw/filtering/],
 };
-sub tail {
+sub cat {
     my %args = @_;
     my ($in, $out) = ($args{in}, $args{out});
-    my $n = $args{items} // 10;
-
-    # maintain temporary buffer first
-    my @buf;
 
     while (my ($index, $item) = each @$in) {
-        push @buf, $item;
-        shift @buf if @buf > $n;
+        push @$out, $item;
     }
-
-    # push buffer to out
-    push @$out, $_ for @buf;
 
     [200, "OK"];
 }
 
 1;
-# ABSTRACT: Output the last items of data
+# ABSTRACT: Pass input unchanged
 
 __END__
 =pod
 
 =head1 NAME
 
-Data::Unixish::tail - Output the last items of data
+Data::Unixish::cat - Pass input unchanged
 
 =head1 VERSION
 

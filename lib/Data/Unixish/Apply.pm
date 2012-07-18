@@ -8,7 +8,7 @@ use Log::Any '$log';
 use SHARYANTO::Package::Util qw(package_exists);
 use Module::Load;
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 our %SPEC;
 
@@ -22,7 +22,10 @@ $SPEC{apply} = {
         },
         functions => {
             summary => 'Function(s) to apply',
-            schema => ['array*', {of => ['str*', 'array*']}],
+            schema => ['any*' => {of=>[
+                'str*',
+                ['array*', {of => ['str*', 'array*']}],
+            ]}],
             req => 1,
             description => <<'_',
 
@@ -47,6 +50,7 @@ sub apply {
     my %args = @_;
     my $in0 = $args{in}        or return [400, "Please specify in"];
     my $ff0 = $args{functions} or return [400, "Please specify functions"];
+    $ff0 = [$ff0] unless ref($ff0) eq 'ARRAY';
     @$ff0 or return [400, "Please specify at least one function to apply"];
 
     my @ff;
@@ -96,6 +100,7 @@ sub apply {
 1;
 # ABSTRACT: Apply one or more dux functions to data
 
+
 __END__
 =pod
 
@@ -105,7 +110,17 @@ Data::Unixish::Apply - Apply one or more dux functions to data
 
 =head1 VERSION
 
-version 0.02
+version 0.03
+
+=head1 SYNOPSIS
+
+ use Data::Unixish::Apply;
+ Data::Unixish::Apply::apply(
+     in => [1, 4, 2, 6, 7, 10],
+     functions => ['sort', ['printf', {fmt=>'%04d'}]],
+);
+
+=head1 DESCRIPTION
 
 =head1 AUTHOR
 

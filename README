@@ -2,7 +2,7 @@ NAME
     Data::Unixish::Implementation - Data::Unixish
 
 VERSION
-    version 0.02
+    version 0.03
 
 AUTHOR
     Steven Haryanto <stevenharyanto@gmail.com>
